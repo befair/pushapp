@@ -1,9 +1,9 @@
-#appname: cloudtestapp
-#appid: com.titutorial.cloudtest
-#type: mobile
-#guid: d39bea60-8634-4f41-bec2-dfd8496cef8d
-#version: 1.0
-#publisher: not specified
-#url: not specified
-#image: appicon.png
-#desc: not specified
+#appname:__APPNAME__
+#appid:com.ti.__APPNAME__
+#type:mobile
+#guid:__GUID__
+#version:__VERSION__
+#publisher:__PUBLISHER__
+#url:__URL__
+#image:__IMAGE__
+#desc:__DESC__

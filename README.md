@@ -1,12 +1,8 @@
-Welcome to your Appcelerator Titanium Mobile Project
+LA TUA APPLICAZIONE PER LE NOTIFICHE PUSH !  
 
-This is a blank project.  Start by editing your application's app.js to 
-make your first mobile project using Titanium.
+---------------------------------------------------------------------
 
-
-
-----------------------------------
-Stuff our legal folk make us say:
+App developed using Titanium
 
 Appcelerator, Appcelerator Titanium and associated marks and logos are 
 trademarks of Appcelerator, Inc. 
