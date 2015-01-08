@@ -18,7 +18,7 @@
     <url>__URL__</url>
     <description>__DESCRIPTION__</description>
     <copyright>__COPYRIGHT__</copyright>
-    <icon>__ICON_IMAGE__</icon>
+    <icon>__ICON_IMAGE__PATHi__</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
     <statusbar-style>default</statusbar-style>

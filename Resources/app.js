@@ -2,7 +2,7 @@ Titanium.UI.setBackgroundColor('#000');
 
 var win = Ti.UI.createWindow({
 	backgroundColor : '#FFF',
-	title : '',
+	title : APP_NAME,
 	exitOnClose: true
 });
 
@@ -16,14 +16,17 @@ CloudPush.focusAppOnPush = false;
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
-var USER_ID = 'ACS app USER_ID';
+var USER_ID = '_ACS app USER_ID';
 var USERNAME = '_USERNAME';
 var PASSWORD = '_PASSWORD';
 var CHANNEL = '_CHANNEL';
 var SITE = "_SITE";
 var INFO = "_INFO";
-var LICENSE = "Licenza: AGPLv3 www.gnu.org/licenses/agpl-3.0.html";
+var LICENSE = "_LICENSE";
 var DEVELOPED_BY = "_DEVELOPED_BY";
+var APP_NAME = "_APP_NAME";
+var ICON = "_ICON";
+var REDIRECT_BUTTON_IMAGE = "_REDIRECT_BUTTON_IMAGE";
 
 var	textredirect_left,redirectimageview_left;
 
@@ -77,11 +80,11 @@ win.add( body );
 if(!Ti.App.Properties.getBool("isSubscribed")){
 	
 	win.add( submit_container );
-	label.html ='Benvenuto! <br> Ora NON ricevi le notifiche da ____';
+	label.html ='Benvenuto! <br> Ora NON ricevi le notifiche da ' + SITE;
 } else{
 	
 	body.width = Titanium.Platform.displayCaps.platformWidth; 	
-	label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ____';
+	label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SITE;
 }
 
 /**
@@ -95,7 +98,7 @@ var textredirect = Ti.UI.createButton({
 	top : '120dp',
 	borderColor : '#333333' ,
 	borderWidth : '1dp',
-	title : 'Vai al portale __SITO__',
+	title : 'Vai al portale ' + SITE,
 	color : '#E65C00',
 	font: { fontSize:42 },
 });
@@ -111,7 +114,7 @@ textredirect.addEventListener('click', function(e) {
 
 
 var redirectimageview = Ti.UI.createImageView();
-redirectimageview.image = '__IMAGE__';
+redirectimageview.image = REDIRECT_BUTTON_IMAGE;
 redirectimageview.width = '200dp';
 redirectimageview.height = '150dp';
 redirectimageview.top = '240dp';
@@ -139,7 +142,7 @@ activity.onCreateOptionsMenu = function(e) {
     var menu = e.menu;
      
     var unsubscribe = menu.add({
-        title : "Non desidero più ricevere notifiche da ____",
+        title : "Non desidero più ricevere notifiche da " + SITE,
         showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
     });
     
@@ -173,7 +176,7 @@ activity.onCreateOptionsMenu = function(e) {
 	    var dialog = Ti.UI.createAlertDialog({
 			cancel: 0,
 			ok: 'Chiudi',
-			message: INFO + "\n\n" + LICENSE + "\n\n" + DEVELOPED_BY,
+			message: INFO + "\n\n Licenza: " + LICENSE + "\n\n Sviluppato da: " + DEVELOPED_BY,
 			title: 'Informazioni'
 		});
 		dialog.show();
@@ -216,21 +219,13 @@ function loginDefault(e) {
 						else
 							defaultUnsubscribe(deviceToken);
 					} else {
-						var dialog = Ti.UI.createAlertDialog({
-  						message: 'Verifica che il device sia connesso a internet.',
-    					ok: 'Ok',
-    					title: 'Errore'
-  						});
+			            var dialog = error_dialog();
   						dialog.show();
 					}
 				});	
 		},
 		error : function deviceTokenError(ev) {
-			var dialog = Ti.UI.createAlertDialog({
-				message: 'Verifica che il device sia connesso a internet.',
-				ok: 'Ok',
-				title: 'Errore'
-			});
+			var dialog = error_dialog();
 			dialog.show();
 		}
 	});
@@ -258,14 +253,10 @@ function defaultSubscribe(deviceToken) {
  			Ti.App.Properties.setBool("isSubscribed",true);
 			win.remove(submit_container);
 			body.width = Titanium.Platform.displayCaps.platformWidth; 	
-			label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ____';
+			label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SITE;
 
 		} else {
-			var dialog = Ti.UI.createAlertDialog({
-				message: 'Verifica che il device sia connesso a internet.',
-				ok: 'Ok',
-				title: 'Errore'
-			});
+			var dialog = error_dialog();
 			dialog.show();
 		}
 	});
@@ -281,7 +272,7 @@ function defaultUnsubscribe(deviceToken) {
 	}, function(e) {
 		if (e.success) {
 			var dialog = Ti.UI.createAlertDialog({
-  				message: 'Sei stato cancellato dal servizio di notifica di ____. Speriamo di rivederti presto.',
+  				message: 'Sei stato cancellato dal servizio di notifica di ' + SITE + '. Speriamo di rivederti presto.',
     			ok: 'Ok',
     			title: 'Cancellato'
   			});
@@ -290,16 +281,21 @@ function defaultUnsubscribe(deviceToken) {
  			Ti.App.Properties.setBool("isSubscribed",false);
  			win.add(submit_container);
 			body.width = Titanium.Platform.displayCaps.platformWidth - 100;
-			label.html = 'Benvenuto! <br> Ora NON ricevi le notifiche da ____';
+			label.html = 'Benvenuto! <br> Ora NON ricevi le notifiche da ' + SITE;
 		} else {
-			var dialog = Ti.UI.createAlertDialog({
-				message: 'Verifica che il device sia connesso a internet.',
-				ok: 'Ok',
-				title: 'Errore'
-			});
+			var dialog = error_dialog();
 			dialog.show();
 		}
 	});
+}
+
+function error_dialog(){
+
+    return Ti.UI.createAlertDialog({
+        message: 'Verifica che il device sia connesso a internet.',
+        ok: 'Ok',
+        title: 'Errore'
+    });
 }
 
 /**
@@ -318,13 +314,13 @@ CloudPush.addEventListener('callback', function(evt) {
 		cancel: 1,
 		buttonNames: ['Vai al sito', 'Chiudi'],
 		message: payload.android.alert,
-		title: '__TITLE__'
+		title: APP_NAME
 	});
 	dialog.addEventListener('click', function(e){
 	    if (e.index === e.source.cancel){
 	    	win.close();
 	    }else{
-			Ti.Platform.openURL('______');
+			Ti.Platform.openURL(SITE);
 		}
 	  });
 	dialog.show();
