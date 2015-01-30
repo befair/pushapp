@@ -16,21 +16,17 @@ CloudPush.focusAppOnPush = false;
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
-var USER_ID;
-if(Ti.App.Properties.getString('ti.deploytype') == 'development') {
-    USER_ID = '';
-} else {
-    USER_ID = '';
-}
-var USERNAME = '_USERNAME';
-var PASSWORD = '_PASSWORD';
-var CHANNEL = '_CHANNEL';
-var SITE = "_SITE";
-var INFO = "_INFO";
-var LICENSE = "_LICENSE";
-var DEVELOPED_BY = "_DEVELOPED_BY";
-var APP_NAME = "_APP_NAME";
-var REDIRECT_BUTTON_IMAGE = "_REDIRECT_BUTTON_IMAGE";
+var USER_ID = Ti.App.Properties.getString('userid');
+var USERNAME = Ti.App.Properties.getString('username');
+var PASSWORD = Ti.App.Properties.getString('password');
+var CHANNEL = Ti.App.Properties.getString('channel');
+var SITE = Ti.App.Properties.getString('site');
+var INFO = Ti.App.Properties.getString('info');
+var LICENSE = Ti.App.Properties.getString('license');
+var DEVELOPED_BY = Ti.App.Properties.getString('developedby');
+var APP_NAME = Ti.App.Properties.getString('appname');
+var SERVICE_NAME = Ti.App.Properties.getString('servicename');
+var REDIRECT_BUTTON_IMAGE = Ti.App.Properties.getString('redirectbuttonimage');
 
 var	textredirect_left,redirectimageview_left;
 
@@ -84,11 +80,11 @@ win.add( body );
 if(!Ti.App.Properties.getBool("isSubscribed")){
 	
 	win.add( submit_container );
-	label.html ='Benvenuto! <br> Ora NON ricevi le notifiche da ' + SITE;
+	label.html ='Benvenuto! <br> Ora NON ricevi le notifiche da ' + SERVICE_NAME;
 } else{
 	
 	body.width = Titanium.Platform.displayCaps.platformWidth; 	
-	label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SITE;
+	label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SERVICE_NAME;
 }
 
 /**
@@ -146,7 +142,7 @@ activity.onCreateOptionsMenu = function(e) {
     var menu = e.menu;
      
     var unsubscribe = menu.add({
-        title : "Non desidero più ricevere notifiche da " + SITE,
+        title : "Non desidero più ricevere notifiche da " + SERVICE_NAME,
         showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
     });
     
@@ -248,7 +244,7 @@ function defaultSubscribe(deviceToken) {
 	}, function(e) {
 		if (e.success) {
 			var dialog = Ti.UI.createAlertDialog({
-  				message: 'Ora sei iscritto al servizio di notifica di ____',
+ 				message: 'Ora sei iscritto al servizio di notifica di ' + SERVICE_NAME,
     			ok: 'Ok',
     			title: 'Complimenti!'
   			});
@@ -257,7 +253,7 @@ function defaultSubscribe(deviceToken) {
  			Ti.App.Properties.setBool("isSubscribed",true);
 			win.remove(submit_container);
 			body.width = Titanium.Platform.displayCaps.platformWidth; 	
-			label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SITE;
+			label.html = 'Benvenuto! <br> Ora ricevi le notifiche da ' + SERVICE_NAME;
 
 		} else {
 			var dialog = error_dialog();

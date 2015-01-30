@@ -8,8 +8,7 @@ CONFIGURE
 
 The pushapp configurations are:
 
-  * at the top of the Resource/app.js file. There the development configurations can be set
-  * in the tiapp.xml file. There the ACS and custom configurations can be set
+  * in the tiapp.xml file. There the ACS and development configurations can be set
   * in the manifest file. There the app and namespace configurations can be set
 
 BUILD
