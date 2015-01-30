@@ -16,7 +16,12 @@ CloudPush.focusAppOnPush = false;
 var Cloud = require('ti.cloud');
 Cloud.debug = true;
 
-var USER_ID = '_ACS app USER_ID';
+var USER_ID;
+if(Ti.App.Properties.getString('ti.deploytype') == 'development') {
+    USER_ID = '';
+} else {
+    USER_ID = '';
+}
 var USERNAME = '_USERNAME';
 var PASSWORD = '_PASSWORD';
 var CHANNEL = '_CHANNEL';
@@ -25,7 +30,6 @@ var INFO = "_INFO";
 var LICENSE = "_LICENSE";
 var DEVELOPED_BY = "_DEVELOPED_BY";
 var APP_NAME = "_APP_NAME";
-var ICON = "_ICON";
 var REDIRECT_BUTTON_IMAGE = "_REDIRECT_BUTTON_IMAGE";
 
 var	textredirect_left,redirectimageview_left;
