@@ -27,6 +27,22 @@
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
     <guid>__GUID__</guid>
+    <property name="ti.deploytype"></property>
+    <!-- WARNING: user_id must be of a production user if
+    using production app key or of a development user if
+    using development app key  -->
+    <property name="userid"></property>
+    <property name="username"></property>
+    <property name="password"></property>
+    <property name="channel"></property>
+    <property name="site"></property>
+    <property name="info"></property>
+    <property name="license"></property>
+    <property name="developedby"></property>
+    <property name="appname"></property>
+    <property name="servicename"></property>
+    <property name="redirectbuttonimage"></property>
+    <!-- DO NOT EDIT BELOW THIS LINE -->
     <property name="ti.ui.defaultunit" type="string">system</property>
     <iphone>
         <orientations device="iphone">
@@ -63,19 +79,4 @@
         <target device="tizen">false</target>
     </deployment-targets>
     <sdk-version>3.2.3.GA</sdk-version>
-    <property name="ti.deploytype"></property>
-    <!-- WARNING: user_id must be of a production user if
-    using production app key or of a development user if
-    using development app key  -->
-    <property name="userid"></property>
-    <property name="username"></property>
-    <property name="password"></property>
-    <property name="channel"></property>
-    <property name="site"></property>
-    <property name="info"></property>
-    <property name="license"></property>
-    <property name="developedby"></property>
-    <property name="appname"></property>
-    <property name="servicename"></property>
-    <property name="redirectbuttonimage"></property>
 </ti:app>
